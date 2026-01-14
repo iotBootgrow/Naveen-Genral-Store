@@ -1,237 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Naveen General Store - WhatsApp Demo</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #e5ddd5;
-    margin: 0;
-    padding: 0;
-}
-h1 {
-    text-align: center;
-    background: #075e54;
-    color: white;
-    padding: 10px;
-    margin: 0;
-}
-.container {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-}
-.chat, .merchant {
-    background: #f0f0f0;
-    border-radius: 8px;
-    padding: 10px;
-    width: 50%;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-}
-.chat-header {
-    background: #128c7e;
-    color: white;
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
-}
-.messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    background: #ece5dd;
-}
-.msg {
-    max-width: 75%;
-    padding: 8px 10px;
-    border-radius: 8px;
-    margin: 5px 0;
-    font-size: 14px;
-}
-.bot {
-    background: white;
-    align-self: flex-start;
-}
-.user {
-    background: #dcf8c6;
-    align-self: flex-end;
-}
-.input-area {
-    display: flex;
-    gap: 5px;
-}
-input {
-    padding: 6px;
-    font-size: 14px;
-    width: 100%;
-}
-button {
-    background: #128c7e;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.merchant h2 {
-    margin-top: 0;
-    color: #075e54;
-}
-.card {
-    background: white;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-.status {
-    font-weight: bold;
-    margin-top: 10px;
-    color: green;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen General Stores - WhatsApp Order System Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .demo-container { max-width: 1400px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 { color: #2d3748; font-size: 32px; margin-bottom: 10px; }
+        .store-name { color: #667eea; font-weight: bold; }
+        .header p { color: #718096; font-size: 18px; }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 968px) { .demo-grid { grid-template-columns: 1fr; } }
+
+        .demo-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: #25D366;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-header { background: #4a5568; }
+
+        .whatsapp-container {
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            background: #e5ddd5;
+        }
+
+        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; }
+
+        .message { margin-bottom: 12px; display: flex; }
+
+        .message-bot { justify-content: flex-start; }
+        .message-user { justify-content: flex-end; }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .message-bot .message-bubble { background: white; border-radius: 0 8px 8px 8px; }
+        .message-user .message-bubble { background: #dcf8c6; border-radius: 8px 0 8px 8px; }
+
+        .product-card {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        .product-name { font-weight: 600; color: #1e40af; font-size: 14px; }
+        .product-price { color: #16a34a; font-weight: bold; font-size: 14px; }
+        .product-mrp { color: #94a3b8; text-decoration: line-through; font-size: 12px; margin-left: 5px; }
+
+        .product-savings {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 3px;
+        }
+
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+        .quick-reply-btn {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .input-area {
+            padding: 15px;
+            background: #f0f0f0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 15px;
+        }
+
+        .input-area button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .dashboard-container { height: 600px; overflow-y: auto; padding: 20px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value { font-size: 32px; font-weight: bold; margin-bottom: 5px; }
+        .stat-label { font-size: 14px; opacity: 0.9; }
+
+        .order-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .order-card.new-order { border-color: #48bb78; background: #f0fff4; }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .order-id { font-weight: bold; color: #2d3748; font-size: 18px; }
+
+        .order-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-new { background: #fed7d7; color: #c53030; }
+        .status-confirmed { background: #c6f6d5; color: #2f855a; }
+
+        .customer-info {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .customer-name { font-weight: 600; color: #2d3748; margin-bottom: 5px; }
+        .customer-phone { color: #718096; font-size: 14px; margin-bottom: 5px; }
+        .customer-address { color: #4a5568; font-size: 14px; }
+
+        .order-items { margin-bottom: 15px; }
+
+        .order-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .order-item-savings { color: #16a34a; font-size: 12px; font-weight: 600; }
+
+        .order-summary {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            padding-top: 8px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .action-buttons { display: flex; gap: 10px; margin-top: 15px; }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-accept { background: #48bb78; color: white; }
+        .btn-reject { background: #f56565; color: white; }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .control-btn {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
+<div class="demo-container">
+    <div class="header">
+        <h1>🛒 <span class="store-name">Naveen General Stores</span></h1>
+        <p>WhatsApp Order System - Live Demo</p>
+    </div>
 
-<h1>📦 Naveen General Store – WhatsApp Ordering Demo</h1>
+    <div class="demo-grid">
+        <div class="demo-panel">
+            <div class="panel-header">📱 Customer View (WhatsApp)</div>
+            <div class="whatsapp-container">
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Type a message..." />
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
 
-<div class="container">
-
-    <div class="chat">
-        <div class="chat-header">Naveen General Store</div>
-        <div class="messages" id="chatBox"></div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type here..." />
-            <button onclick="sendMessage()">Send</button>
+        <div class="demo-panel">
+            <div class="panel-header dashboard-header">💼 Merchant Dashboard</div>
+            <div class="dashboard-container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="todayOrders">0</div>
+                        <div class="stat-label">Today's Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="todayRevenue">₹0</div>
+                        <div class="stat-label">Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalSavings">₹0</div>
+                        <div class="stat-label">Customer Savings</div>
+                    </div>
+                </div>
+                <div id="ordersContainer"></div>
+            </div>
         </div>
     </div>
 
-    <div class="merchant">
-        <h2>🏪 Merchant Dashboard</h2>
-        <div id="merchantPanel">No orders yet.</div>
-        <div id="assignPanel" style="display:none;">
-            <h3>🚚 Assign Rider</h3>
-            <input type="text" id="riderName" placeholder="Rider Name"><br><br>
-            <input type="text" id="riderPhone" placeholder="Rider Phone"><br><br>
-            <button onclick="dispatchOrder()">Dispatch Order</button>
-        </div>
-        <div class="status" id="orderStatus"></div>
+    <div class="controls">
+        <button class="control-btn" onclick="startDemo()">▶️ Start Demo</button>
+        <button class="control-btn" onclick="resetDemo()">🔄 Reset</button>
     </div>
-
 </div>
 
 <script>
-let step = 0;
-let order = {};
-let totalMRP = 0;
-let totalPrice = 0;
+let conversationState = 'welcome';
+let cart = [];
+let orderCounter = 0;
+let todayOrders = 0;
+let todayRevenue = 0;
+let totalSavings = 0;
+let deliveryAddress = '';
+let customerName = '';
 
 const products = {
-    "atta": { name: "Atta 5kg", mrp: 350, price: 300 },
-    "dal": { name: "Toor Dal 1kg", mrp: 140, price: 110 },
-    "spices": { name: "Turmeric 200g", mrp: 60, price: 45 },
-    "tea": { name: "Tata Tea 250g", mrp: 140, price: 120 },
-    "cosmetics": { name: "Nivea Cream", mrp: 180, price: 150 }
+    atta: [
+        { name: 'Aashirvaad Atta', mrp: 310, price: 280, unit: '5kg' },
+        { name: 'Pillsbury Atta', mrp: 295, price: 265, unit: '5kg' }
+    ],
+    dairy: [
+        { name: 'Amul Milk', mrp: 68, price: 60, unit: 'L' },
+        { name: 'Amul Butter', mrp: 62, price: 55, unit: '100g' }
+    ]
 };
 
-const chatBox = document.getElementById("chatBox");
-
-function addMessage(text, type) {
-    const msg = document.createElement("div");
-    msg.className = `msg ${type}`;
-    msg.innerText = text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
+function addBotMessage(text) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message message-bot';
+    div.innerHTML = `<div class="message-bubble">${text}</div>`;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-addMessage("Welcome to Naveen General Store 👋\nType: ORDER to start", "bot");
+function addUserMessage(text) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'message message-user';
+    div.innerHTML = `<div class="message-bubble">${text}</div>`;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function updateStats() {
+    document.getElementById('todayOrders').textContent = todayOrders;
+    document.getElementById('todayRevenue').textContent = '₹' + todayRevenue;
+    document.getElementById('totalSavings').textContent = '₹' + totalSavings;
+}
+
+function createOrder(items, total, savings, address, name) {
+    orderCounter++;
+    todayOrders++;
+    todayRevenue += total;
+    totalSavings += savings;
+    updateStats();
+
+    const card = document.createElement('div');
+    card.className = 'order-card new-order';
+    card.innerHTML = `
+        <div class="order-header">
+            <div class="order-id">ORD-${orderCounter}</div>
+            <div class="order-status status-new">NEW</div>
+        </div>
+        <div class="customer-info">
+            <div class="customer-name">${name}</div>
+            <div class="customer-phone">+91 9876543210</div>
+            <div class="customer-address">${address}</div>
+        </div>
+        <div class="order-summary">
+            <div class="summary-row total"><span>Total:</span><span>₹${total}</span></div>
+            <div class="summary-row"><span>Savings:</span><span>₹${savings}</span></div>
+        </div>
+    `;
+    document.getElementById('ordersContainer').prepend(card);
+}
+
+function handleConversation(message) {
+    if (conversationState === 'welcome') {
+        addBotMessage('Welcome to Naveen General Stores! 🛒<br>Type: <b>Atta</b> or <b>Dairy</b>');
+        conversationState = 'category';
+    } 
+    else if (conversationState === 'category') {
+        if (message.toLowerCase().includes('atta')) {
+            addBotMessage('Atta available:<br>1. Aashirvaad Atta (₹280)<br>Reply: 1 2 (item qty)');
+            conversationState = 'ordering';
+        } else if (message.toLowerCase().includes('dairy')) {
+            addBotMessage('Dairy available:<br>1. Amul Milk (₹60)<br>Reply: 1 2 (item qty)');
+            conversationState = 'ordering';
+        }
+    }
+    else if (conversationState === 'ordering') {
+        const match = message.match(/(\d+)\s+(\d+)/);
+        if (match) {
+            const qty = parseInt(match[2]);
+            const product = products.atta[0];
+            const total = product.price * qty;
+            const savings = (product.mrp - product.price) * qty;
+            cart.push({ total, savings });
+            addBotMessage(`Added ${qty} ${product.name}. Type CHECKOUT`);
+            conversationState = 'cart';
+        }
+    }
+    else if (conversationState === 'cart') {
+        if (message.toLowerCase().includes('checkout')) {
+            addBotMessage('Please enter delivery address:');
+            conversationState = 'address';
+        }
+    }
+    else if (conversationState === 'address') {
+        deliveryAddress = message;
+        addBotMessage('Enter your name:');
+        conversationState = 'name';
+    }
+    else if (conversationState === 'name') {
+        customerName = message;
+        const total = cart.reduce((s, i) => s + i.total, 0);
+        const savings = cart.reduce((s, i) => s + i.savings, 0);
+        createOrder(cart, total, savings, deliveryAddress, customerName);
+        addBotMessage('✅ Order placed successfully!');
+        cart = [];
+        conversationState = 'welcome';
+    }
+}
 
 function sendMessage() {
-    const input = document.getElementById("userInput");
-    const text = input.value.trim();
-    if (!text) return;
-    addMessage(text, "user");
-    input.value = "";
-    handleBot(text.toLowerCase());
+    const input = document.getElementById('userInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    addUserMessage(msg);
+    input.value = '';
+    handleConversation(msg);
 }
 
-function handleBot(text) {
-    if (step === 0 && text === "order") {
-        addMessage("Choose category:\n1 Atta\n2 Dal\n3 Spices\n4 Tea/Coffee\n5 Cosmetics", "bot");
-        step = 1;
-        return;
-    }
-    if (step === 1) {
-        if (text === "1") selectProduct("atta");
-        else if (text === "2") selectProduct("dal");
-        else if (text === "3") selectProduct("spices");
-        else if (text === "4") selectProduct("tea");
-        else if (text === "5") selectProduct("cosmetics");
-        else addMessage("Choose 1–5", "bot");
-        return;
-    }
-    if (step === 2) {
-        const qty = parseInt(text);
-        if (!qty) { addMessage("Enter valid quantity", "bot"); return; }
-        const item = order.current;
-        order[item.key] = qty;
-        totalMRP += item.mrp * qty;
-        totalPrice += item.price * qty;
-        addMessage(`Added ${item.name} x ${qty}`, "bot");
-        addMessage("Type YES to confirm or ORDER to add more", "bot");
-        step = 3;
-        return;
-    }
-    if (step === 3) {
-        if (text === "order") {
-            addMessage("Choose category again (1–5)", "bot");
-            step = 1;
-            return;
-        }
-        if (text === "yes") {
-            addMessage("Enter delivery address:", "bot");
-            step = 4;
-            return;
-        }
-    }
-    if (step === 4) {
-        order.address = text;
-        addMessage(`Order placed!\nTotal: ₹${totalPrice}\nSaved: ₹${totalMRP-totalPrice}`, "bot");
-        showMerchantOrder();
-    }
+function startDemo() {
+    document.getElementById('chatMessages').innerHTML = '';
+    cart = [];
+    conversationState = 'welcome';
+    addBotMessage('👋 Hello! Welcome to Naveen General Stores');
 }
 
-function selectProduct(key) {
-    const p = products[key];
-    order.current = { key, ...p };
-    addMessage(`${p.name}\nMRP ₹${p.mrp} → ₹${p.price}\nEnter quantity:`, "bot");
-    step = 2;
-}
-
-function showMerchantOrder() {
-    let items = "";
-    for (let key in order) {
-        if (products[key]) items += `${products[key].name} x ${order[key]}<br>`;
-    }
-    document.getElementById("merchantPanel").innerHTML = `
-        <div class="card">
-            <strong>Items:</strong><br>${items}
-            <p>Total: ₹${totalPrice}</p>
-            <p>Address: ${order.address}</p>
-            <button onclick="confirmOrder()">Confirm</button>
-        </div>`;
-}
-
-function confirmOrder() {
-    document.getElementById("assignPanel").style.display = "block";
-}
-
-function dispatchOrder() {
-    const rider = document.getElementById("riderName").value;
-    const phone = document.getElementById("riderPhone").value;
-    document.getElementById("orderStatus").innerHTML = `Out for delivery by ${rider} (${phone})`;
-    addMessage(`🚚 Out for delivery\nRider: ${rider}\nPhone: ${phone}`, "bot");
+function resetDemo() {
+    document.getElementById('chatMessages').innerHTML = '';
+    document.getElementById('ordersContainer').innerHTML = '';
+    cart = [];
+    conversationState = 'welcome';
+    todayOrders = 0;
+    todayRevenue = 0;
+    totalSavings = 0;
+    updateStats();
 }
 </script>
 
