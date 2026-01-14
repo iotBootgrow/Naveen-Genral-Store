@@ -1,321 +1,239 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8">
+<title>Naveen General Store - WhatsApp Demo</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #e5ddd5;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    text-align: center;
+    background: #075e54;
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+.container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+.chat, .merchant {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 50%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+.chat-header {
+    background: #128c7e;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+}
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background: #ece5dd;
+}
+.msg {
+    max-width: 75%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+.bot {
+    background: white;
+    align-self: flex-start;
+}
+.user {
+    background: #dcf8c6;
+    align-self: flex-end;
+}
+.input-area {
+    display: flex;
+    gap: 5px;
+}
+input {
+    padding: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+button {
+    background: #128c7e;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.merchant h2 {
+    margin-top: 0;
+    color: #075e54;
+}
+.card {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.status {
+    font-weight: bold;
+    margin-top: 10px;
+    color: green;
+}
+</style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;title&gt;Naveen General Store - WhatsApp Demo&lt;/title&gt;</p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #e5ddd5;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #075e54;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gap: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chat, .merchant {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #f0f0f0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: 85vh;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chat-header {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #128c7e;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 8px 8px 0 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.messages {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>overflow-y: auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #ece5dd;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.msg {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>max-width: 75%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 8px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin: 5px 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>line-height: 1.4;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.bot {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>align-self: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.user {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #dcf8c6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>align-self: flex-end;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-area {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gap: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin-top: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input, textarea {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #128c7e;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 6px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #0d6f63;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.merchant h2 {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin-top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>color: #075e54;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.status {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin-top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>color: green;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h1&gt;📦 Naveen General Store – WhatsApp Ordering Demo&lt;/h1&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="container"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- CUSTOMER CHAT --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chat-header"&gt;Naveen General Store&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="messages" id="chatBox"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-area"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="userInput" placeholder="Type here..." /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="sendMessage()"&gt;Send&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MERCHANT PANEL --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="merchant"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;🏪 Merchant Dashboard&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="merchantPanel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;No orders yet.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="assignPanel" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;🚚 Assign Rider&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="riderName" placeholder="Rider Name"&gt;&lt;br&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="riderPhone" placeholder="Rider Phone"&gt;&lt;br&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="dispatchOrder()"&gt;Dispatch Order&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="status" id="orderStatus"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">let step = 0;</p>
-<p class="p1">let order = {};</p>
-<p class="p1">let totalMRP = 0;</p>
-<p class="p1">let totalPrice = 0;</p>
-<p class="p2"><br></p>
-<p class="p1">const products = {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>"atta": { name: "Atta 5kg", mrp: 350, price: 300 },</p>
-<p class="p1"><span class="Apple-converted-space">    </span>"dal": { name: "Toor Dal 1kg", mrp: 140, price: 110 },</p>
-<p class="p1"><span class="Apple-converted-space">    </span>"spices": { name: "Turmeric 200g", mrp: 60, price: 45 },</p>
-<p class="p1"><span class="Apple-converted-space">    </span>"tea": { name: "Tata Tea 250g", mrp: 140, price: 120 },</p>
-<p class="p1"><span class="Apple-converted-space">    </span>"cosmetics": { name: "Nivea Cream", mrp: 180, price: 150 }</p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p1">const chatBox = document.getElementById("chatBox");</p>
-<p class="p2"><br></p>
-<p class="p1">function addMessage(text, type) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const msg = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>msg.className = `msg ${type}`;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>msg.innerText = text;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>chatBox.appendChild(msg);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>chatBox.scrollTop = chatBox.scrollHeight;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">addMessage("Welcome to Naveen General Store 👋\nType: ORDER to start", "bot");</p>
-<p class="p2"><br></p>
-<p class="p1">function sendMessage() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const input = document.getElementById("userInput");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const text = input.value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (!text) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>addMessage(text, "user");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>input.value = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>handleBot(text.toLowerCase());</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function handleBot(text) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (step === 0 &amp;&amp; text === "order") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage("Please choose a category:\n1️⃣ Atta\n2️⃣ Dal\n3️⃣ Spices\n4️⃣ Tea/Coffee\n5️⃣ Cosmetics", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>step = 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (step === 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (text === "1") selectProduct("atta");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else if (text === "2") selectProduct("dal");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else if (text === "3") selectProduct("spices");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else if (text === "4") selectProduct("tea");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else if (text === "5") selectProduct("cosmetics");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else addMessage("Please choose a valid option (1–5).", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (step === 2) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const qty = parseInt(text);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (isNaN(qty) || qty &lt;= 0) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>addMessage("Please enter a valid quantity.", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const item = order.current;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>order[item.key] = qty;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalMRP += item.mrp * qty;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalPrice += item.price * qty;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage(`Added: ${item.name} x ${qty}`, "bot");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage("Type YES to confirm order or ORDER to add more items.", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>step = 3;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (step === 3) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (text === "order") {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>addMessage("Choose another category:\n1️⃣ Atta\n2️⃣ Dal\n3️⃣ Spices\n4️⃣ Tea/Coffee\n5️⃣ Cosmetics", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>step = 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (text === "yes") {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>addMessage("Please enter your delivery address:", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>step = 4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage("Type YES to confirm or ORDER to add more.", "bot");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (step === 4) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>order.address = text;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savings = totalMRP - totalPrice;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage(`🧾 Order Summary:</p>
-<p class="p1">MRP: ₹${totalMRP}</p>
-<p class="p1">Pay: ₹${totalPrice}</p>
-<p class="p1">You Saved: ₹${savings}</p>
-<p class="p1">Address: ${order.address}</p>
-<p class="p1">Status: Order Placed`, "bot");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>showMerchantOrder();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>step = 5;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function selectProduct(key) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const p = products[key];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>order.current = { key, ...p };</p>
-<p class="p1"><span class="Apple-converted-space">    </span>addMessage(`${p.name}\nMRP: ₹${p.mrp}\nOffer Price: ₹${p.price}\nEnter quantity:`, "bot");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>step = 2;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function showMerchantOrder() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let items = "";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>for (let key in order) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (products[key]) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>items += `${products[key].name} x ${order[key]}&lt;br&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("merchantPanel").innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;📥 New Order&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;&lt;strong&gt;Items:&lt;/strong&gt;&lt;br&gt;${items}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;&lt;strong&gt;Total:&lt;/strong&gt; ₹${totalPrice}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;&lt;strong&gt;Address:&lt;/strong&gt; ${order.address}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="confirmOrder()"&gt;Confirm Shipment&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function confirmOrder() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("assignPanel").style.display = "block";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("orderStatus").innerText = "Order confirmed. Assign a rider.";</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function dispatchOrder() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const rider = document.getElementById("riderName").value;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const phone = document.getElementById("riderPhone").value;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (!rider || !phone) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>alert("Please enter rider details.");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("orderStatus").innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">        </span>🚴 Out for Delivery&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Rider: ${rider}&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Phone: ${phone}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>addMessage(`🚚 Your order is out for delivery!\nRider: ${rider}\nPhone: ${phone}`, "bot");</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<h1>📦 Naveen General Store – WhatsApp Ordering Demo</h1>
+
+<div class="container">
+
+    <div class="chat">
+        <div class="chat-header">Naveen General Store</div>
+        <div class="messages" id="chatBox"></div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type here..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <div class="merchant">
+        <h2>🏪 Merchant Dashboard</h2>
+        <div id="merchantPanel">No orders yet.</div>
+        <div id="assignPanel" style="display:none;">
+            <h3>🚚 Assign Rider</h3>
+            <input type="text" id="riderName" placeholder="Rider Name"><br><br>
+            <input type="text" id="riderPhone" placeholder="Rider Phone"><br><br>
+            <button onclick="dispatchOrder()">Dispatch Order</button>
+        </div>
+        <div class="status" id="orderStatus"></div>
+    </div>
+
+</div>
+
+<script>
+let step = 0;
+let order = {};
+let totalMRP = 0;
+let totalPrice = 0;
+
+const products = {
+    "atta": { name: "Atta 5kg", mrp: 350, price: 300 },
+    "dal": { name: "Toor Dal 1kg", mrp: 140, price: 110 },
+    "spices": { name: "Turmeric 200g", mrp: 60, price: 45 },
+    "tea": { name: "Tata Tea 250g", mrp: 140, price: 120 },
+    "cosmetics": { name: "Nivea Cream", mrp: 180, price: 150 }
+};
+
+const chatBox = document.getElementById("chatBox");
+
+function addMessage(text, type) {
+    const msg = document.createElement("div");
+    msg.className = `msg ${type}`;
+    msg.innerText = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+addMessage("Welcome to Naveen General Store 👋\nType: ORDER to start", "bot");
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    input.value = "";
+    handleBot(text.toLowerCase());
+}
+
+function handleBot(text) {
+    if (step === 0 && text === "order") {
+        addMessage("Choose category:\n1 Atta\n2 Dal\n3 Spices\n4 Tea/Coffee\n5 Cosmetics", "bot");
+        step = 1;
+        return;
+    }
+    if (step === 1) {
+        if (text === "1") selectProduct("atta");
+        else if (text === "2") selectProduct("dal");
+        else if (text === "3") selectProduct("spices");
+        else if (text === "4") selectProduct("tea");
+        else if (text === "5") selectProduct("cosmetics");
+        else addMessage("Choose 1–5", "bot");
+        return;
+    }
+    if (step === 2) {
+        const qty = parseInt(text);
+        if (!qty) { addMessage("Enter valid quantity", "bot"); return; }
+        const item = order.current;
+        order[item.key] = qty;
+        totalMRP += item.mrp * qty;
+        totalPrice += item.price * qty;
+        addMessage(`Added ${item.name} x ${qty}`, "bot");
+        addMessage("Type YES to confirm or ORDER to add more", "bot");
+        step = 3;
+        return;
+    }
+    if (step === 3) {
+        if (text === "order") {
+            addMessage("Choose category again (1–5)", "bot");
+            step = 1;
+            return;
+        }
+        if (text === "yes") {
+            addMessage("Enter delivery address:", "bot");
+            step = 4;
+            return;
+        }
+    }
+    if (step === 4) {
+        order.address = text;
+        addMessage(`Order placed!\nTotal: ₹${totalPrice}\nSaved: ₹${totalMRP-totalPrice}`, "bot");
+        showMerchantOrder();
+    }
+}
+
+function selectProduct(key) {
+    const p = products[key];
+    order.current = { key, ...p };
+    addMessage(`${p.name}\nMRP ₹${p.mrp} → ₹${p.price}\nEnter quantity:`, "bot");
+    step = 2;
+}
+
+function showMerchantOrder() {
+    let items = "";
+    for (let key in order) {
+        if (products[key]) items += `${products[key].name} x ${order[key]}<br>`;
+    }
+    document.getElementById("merchantPanel").innerHTML = `
+        <div class="card">
+            <strong>Items:</strong><br>${items}
+            <p>Total: ₹${totalPrice}</p>
+            <p>Address: ${order.address}</p>
+            <button onclick="confirmOrder()">Confirm</button>
+        </div>`;
+}
+
+function confirmOrder() {
+    document.getElementById("assignPanel").style.display = "block";
+}
+
+function dispatchOrder() {
+    const rider = document.getElementById("riderName").value;
+    const phone = document.getElementById("riderPhone").value;
+    document.getElementById("orderStatus").innerHTML = `Out for delivery by ${rider} (${phone})`;
+    addMessage(`🚚 Out for delivery\nRider: ${rider}\nPhone: ${phone}`, "bot");
+}
+</script>
+
 </body>
 </html>
